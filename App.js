@@ -1,6 +1,17 @@
-import React, {useState} from 'react';
-import {TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TextInput, Image, SafeAreaView } from 'react-native';
-import Task from './components/Task';
+import React, { useState } from "react";
+import {
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Image,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
+import Task from "./components/Task";
 
 export default function App() {
   const [task, setTask] = useState();
@@ -8,50 +19,56 @@ export default function App() {
 
   const handleAddTask = () => {
     // Keyboard.dismiss();
-    setTaskItems([...taskItems, task])
+    setTaskItems([...taskItems, task]);
     setTask(null);
-  }
-  const completeTask = (index ) => {
+  };
+  const completeTask = (index) => {
     let itemsCopy = [...taskItems];
-    itemsCopy.splice(index,1);
+    itemsCopy.splice(index, 1);
     setTaskItems(itemsCopy);
-  }
+  };
 
   return (
     <View style={styles.container}>
-      <Image style={styles.logo} source={require("./assets/task1.png")} />
-      {/* Today's Task */}
-      <View style={styles.tasksWrapper}>
-        <Text style= {styles.sectionTitle}>Today's tasks</Text>
-        <View style={styles.items}>
-          {/** This is where the tasks will go! */}
-          {
-            taskItems.map((item, index) => {
+      <ScrollView>
+        <Image style={styles.logo} source={require("./assets/task1.png")} />
+        {/* Today's Task */}
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>Today's tasks</Text>
+          <View style={styles.items}>
+            {/** This is where the tasks will go! */}
+            {taskItems.map((item, index) => {
               return (
-                <TouchableOpacity  key={index} onPress ={()=> completeTask(index)}>
-                <Task text ={item}/>
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => completeTask(index)}
+                >
+                  <Task text={item} />
                 </TouchableOpacity>
-              )
-            })
-          }
+              );
+            })}
+          </View>
         </View>
-      </View>
-
+      </ScrollView>
       {/**write a task */}
 
-      <KeyboardAvoidingView 
-        behavior ={Platform.OS === "ios" ? "padding" : height}
-        style = {styles.writeTaskWrapper}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : height}
+        style={styles.writeTaskWrapper}
       >
-        <TextInput style = {styles.input} placeholder = {'write a task'} value ={task} onChangeText ={text => setTask(text)} ></TextInput>
+        <TextInput
+          style={styles.input}
+          placeholder={"write a task"}
+          value={task}
+          onChangeText={(text) => setTask(text)}
+        ></TextInput>
 
-        <TouchableOpacity onPress ={()=> handleAddTask()}>
+        <TouchableOpacity onPress={() => handleAddTask()}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    
     </View>
   );
 }
@@ -59,7 +76,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: "#E8EAED",
   },
   tasksWrapper: {
     paddingTop: 80,
@@ -67,42 +84,42 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   items: {
-    marginTop: 30, 
+    marginTop: 30,
   },
   writeTaskWrapper: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 60,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   input: {
     paddingVertical: 15,
     paddingHorizontal: 15,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 60,
-    borderColor: '#C0C0C0',
+    borderColor: "#C0C0C0",
     borderWidth: 1,
-    width: 250, 
+    width: 250,
   },
   addWrapper: {
     width: 60,
     height: 60,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#C0C0C0",
     borderWidth: 1,
   },
   addText: {},
-  logo:{
-    height: 100,
-    width: 100,
+  logo: {
+    height: 60,
+    width: 190,
     bottom: -50,
   },
 });
