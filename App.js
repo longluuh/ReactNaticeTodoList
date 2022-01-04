@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TextInput } from 'react-native';
+import {TouchableOpacity, KeyboardAvoidingView, Platform, StyleSheet, Text, View, TextInput, Image } from 'react-native';
 import Task from './components/Task';
 
 export default function App() {
@@ -19,9 +19,9 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      
       {/* Today's Task */}
       <View style={styles.tasksWrapper}>
+        <Image style ={styles.logo} source = {require = './assets/task.png'} />
         <Text style= {styles.sectionTitle}>Today's tasks</Text>
         <View style={styles.items}>
           {/** This is where the tasks will go! */}
@@ -100,4 +100,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   addText: {},
+  logo:{
+    height: 50,
+    width: 50,
+  },
 });
